@@ -84,12 +84,12 @@ void backTrack(vector<vector<string>> myvec, string str1, int i, int j){
 }
 void main(){
     
-	cout << "Enter the string on the column: ";
-    string str1 = ""; //col string 
+	cout << "Enter the string on the row: ";
+    string str1 = ""; //row string 
     cin >> str1;
     str1 = "_" + str1;
-    cout << "Enter the string on the row: ";
-    string str2 = ""; //row string 
+    cout << "Enter the string on the column: ";
+    string str2 = ""; //col string 
     cin >> str2;
     str2 = "_" + str2;
 	vector<vector<string>> myvec = lcs(str1,str2);
@@ -99,6 +99,7 @@ void main(){
 		}
 		cout << endl;
 	}
+	cout<< endl <<"Longest Common Subsequence of  is ";
 	backTrack(myvec, str1, str1.size()-1, str2.size()-1);
 	cout << endl;
     system("pause");
