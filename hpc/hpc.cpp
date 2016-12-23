@@ -9,30 +9,39 @@ using namespace std;
 
 
 void main(){
-    string str1 = "president";
-    string str2 = "providence";
+    
+    cout << "Enter the string on the column: ";
+    string str1 = ""; //col string 
+    cin >> str1;
+    str1 = "_" + str1;
+    cout << "Enter the string on the row: ";
+    string str2 = ""; //row string 
+    cin >> str2;
+    str2 = "_" + str2;
 
-     const int len1 = str1.size();
-     const int len2 = str2.size();
+	//getting each string length 
+	const int len1 = str1.size();
+	const int len2 = str2.size();
+	
+    //define two matricies one for the indecies and the other for the backtracking 
     vector<vector<int>> indecies(len1, vector<int>(len2));
 	vector<vector<string>> arrows(len1, vector<string>(len2));
 
-
-
-    /*cout<<indecies.size()<<" " << len1<<endl;
-	cout<<indecies[1].size() << " " << indecies[3].size() << len2 << endl;
-*/
-	for(int i = 0; i<indecies.size();i++){
+	cout << endl;
+	
+	//initialize the first row and column with 0
+	for(int i = 0; i<len1;i++){
 			indecies[i][0]=0;
 	}
-	for(int i = 0; i<indecies[i].size();i++){
+	for(int i = 0; i<len2;i++){
 			indecies[0][i]=0;
 	}
+	
+	//fill the indecies and arrows arrays
 	for(int i = 1; i< len1;i++){
 		for(int j =1 ; j<len2;j++){
 			//matching condition:
 			if(str1.at(i)== str2.at(j)){
-				//cout << "ok";
 				indecies[i][j]=indecies[i-1][j-1]+1;
 				arrows[i][j] = "CORNER";
 			}
@@ -50,6 +59,9 @@ void main(){
 			}
 		}
 	}
+	
+	
+	//printing the arrays out 
 	for(int i = 0; i<indecies.size();i++){
 		for(int j = 0;j<indecies[1].size();j++){
 			cout << indecies[i][j] << " " ;
@@ -62,6 +74,6 @@ void main(){
 		}
 		cout << endl;
 	}
+	
     system("pause");
-
 }
