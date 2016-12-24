@@ -32,6 +32,8 @@ void main(){
 		cout << endl;
 	}
 	backTrack(myvec, str1, str1.size()-1, str2.size()-1);
+	if(length == false)
+		cout << "NO LCS";
 	cout << endl;
 
     system("pause");
@@ -103,8 +105,8 @@ void backTrack(vector<vector<string>> myvec, string str1, int i, int j){
 	}
 	if(myvec[i][j] == "CORNER"){
 		backTrack(myvec, str1, i -1,j-1);
-		if (length = false){
-			cout << endl <<"Longest Common Subsequence of  is ";
+		if (length == false){
+			cout << endl <<"Longest Common Subsequence is ";
 			length = true;
 		}
 		cout << str1.at(i);
