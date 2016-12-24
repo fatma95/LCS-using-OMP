@@ -7,6 +7,37 @@
 #include <string>
 using namespace std;
 
+bool length = false;
+
+//callback functions:
+vector<vector<string>> lcs(string, string);
+void backTrack(vector<vector<string>>, string, int, int);
+
+void main(){
+    
+	cout << "Enter the string on the row: ";
+    string str1 = ""; //row string 
+    cin >> str1;
+    str1 = "_" + str1;//add extra character to the string
+    cout << "Enter the string on the column: ";
+    string str2 = ""; //col string 
+    cin >> str2;
+    str2 = "_" + str2;//add extra character to the string
+	vector<vector<string>> myvec = lcs(str1,str2);
+	//print the arrows matrix
+	for(int i = 0; i<myvec.size();i++){
+		for(int j = 0;j<myvec[1].size();j++){
+			cout << myvec[i][j] << " " ;
+		}
+		cout << endl;
+	}
+	backTrack(myvec, str1, str1.size()-1, str2.size()-1);
+	cout << endl;
+
+    system("pause");
+
+}
+
 vector<vector<string>>  lcs(string str1, string str2){
 
 	//getting each string length 
@@ -16,8 +47,6 @@ vector<vector<string>>  lcs(string str1, string str2){
     //define two matricies one for the indecies and the other for the backtracking 
     vector<vector<int>> indecies(len1, vector<int>(len2));
 	vector<vector<string>> arrows(len1, vector<string>(len2));
-
-	cout << endl;
 	
 	//initialize the first row and column with 0
 	for(int i = 0; i<len1;i++){
@@ -35,7 +64,7 @@ vector<vector<string>>  lcs(string str1, string str2){
 				indecies[i][j]=indecies[i-1][j-1]+1;
 				arrows[i][j] = "CORNER";
 			}
-			//mismatching condition
+			//mismatching condition:
 			else if (str1.at(i) != str2.at(j)){
 				if (indecies[i-1][j] > indecies[i][j-1]){
 					indecies[i][j]=indecies[i-1][j];
@@ -66,43 +95,28 @@ vector<vector<string>>  lcs(string str1, string str2){
 	return arrows;
 	
 }
-void backTrack(vector<vector<string>> myvec, string str1, int i, int j){
-		if(i==0 || j==0){
-			return;
-		}
-		if(myvec[i][j] == "CORNER"){
-			backTrack(myvec, str1, i -1,j-1);
-			cout << str1.at(i);
-		}
-		else if (myvec[i][j] == "UP"){
-			backTrack(myvec, str1, i-1, j);
-		}
-		else if(myvec[i][j] == "LEFT"){
-			backTrack(myvec, str1, i, j-1);
 
-		}
-}
-void main(){
-    
-	cout << "Enter the string on the row: ";
-    string str1 = ""; //row string 
-    cin >> str1;
-    str1 = "_" + str1;
-    cout << "Enter the string on the column: ";
-    string str2 = ""; //col string 
-    cin >> str2;
-    str2 = "_" + str2;
-	vector<vector<string>> myvec = lcs(str1,str2);
-	for(int i = 0; i<myvec.size();i++){
-		for(int j = 0;j<myvec[1].size();j++){
-			cout << myvec[i][j] << " " ;
-		}
-		cout << endl;
+//Backtrack algorithm
+void backTrack(vector<vector<string>> myvec, string str1, int i, int j){	
+	if(i==0 || j==0){
+		return;
 	}
-	cout<< endl <<"Longest Common Subsequence of  is ";
-	backTrack(myvec, str1, str1.size()-1, str2.size()-1);
-	cout << endl;
-    system("pause");
+	if(myvec[i][j] == "CORNER"){
+		backTrack(myvec, str1, i -1,j-1);
+		if (length = false){
+			cout << endl <<"Longest Common Subsequence of  is ";
+			length = true;
+		}
+		cout << str1.at(i);
 
+	}
+	else if (myvec[i][j] == "UP"){
+		backTrack(myvec, str1, i-1, j);
+	}
+	else if(myvec[i][j] == "LEFT"){
+		backTrack(myvec, str1, i, j-1);
+
+	}
 }
+
 
